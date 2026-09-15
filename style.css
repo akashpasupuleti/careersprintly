@@ -35,7 +35,7 @@ button, input, select, textarea { font: inherit; }
 }
 
 .nav-container {
-  max-width: 1500px;
+  max-width: 1240px;
   margin: auto;
   padding: 17px 28px;
   display: flex;
@@ -3532,7 +3532,7 @@ a[href="#services"].btn:hover {
   align-items: center !important;
   justify-content: center !important;
   width: 100% !important;
-  min-height: 48px !important;
+  min-height: 58px !important;
   padding: 14px 20px !important;
 
   background: #ffffff !important;
@@ -4110,5 +4110,109 @@ html, body {
   .navbar .brand small {
     font-size: 5px !important;
     letter-spacing: 1.35px !important;
+  }
+}
+
+/* ============================================================
+   FINAL HOW-IT-WORKS ALIGNMENT + HOVER FIX
+   All 01-10 workflow cards use the exact same internal layout.
+   ============================================================ */
+
+.timeline article,
+.timeline article:nth-child(even) {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-height: 220px !important;
+  height: 220px !important;
+  padding: 30px !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}
+
+/* Keep the desktop divider without changing content alignment. */
+.timeline article:nth-child(even) {
+  border-left: 1px solid var(--line, #d9d8d2) !important;
+}
+
+.timeline article > span,
+.timeline article > h3,
+.timeline article > p {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.timeline article > span {
+  display: block !important;
+  flex: 0 0 auto !important;
+}
+
+.timeline article > h3 {
+  margin-top: 20px !important;
+  margin-bottom: 8px !important;
+  flex: 0 0 auto !important;
+}
+
+.timeline article > p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  flex: 0 0 auto !important;
+  max-width: 470px !important;
+}
+
+/* Explicit hover typography for every workflow card. */
+.timeline article:hover,
+.timeline article:hover h3 {
+  color: #fff !important;
+}
+
+.timeline article:hover > span,
+.timeline article:hover > p {
+  color: var(--gold-light, #e2c77c) !important;
+}
+
+.timeline article:hover::before {
+  transform: scaleY(1) !important;
+}
+
+/* Make the hero audit CTA clearly outlined while idle. */
+.cs-start-audit,
+.cs-start-audit:visited {
+  border: 1px solid rgba(255,255,255,.72) !important;
+  color: #fff !important;
+}
+
+.cs-start-audit:hover,
+.cs-start-audit:focus-visible {
+  border-color: var(--gold, #c9a24a) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 1000px) {
+  .timeline article,
+  .timeline article:nth-child(even) {
+    min-height: 220px !important;
+    height: 220px !important;
+    padding: 30px !important;
+  }
+
+  .timeline article:nth-child(even) {
+    border-left: 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .timeline article,
+  .timeline article:nth-child(even) {
+    min-height: 220px !important;
+    height: 220px !important;
+    padding: 30px !important;
+    border-left: 0 !important;
+  }
+
+  .timeline article > h3 {
+    margin-top: 20px !important;
   }
 }
