@@ -59,12 +59,37 @@ analyzeResume.addEventListener("click", () => {
 const menuBtn = document.getElementById("menuBtn");
 const mainNav = document.getElementById("mainNav");
 
-menuBtn.addEventListener("click", () => {
-  mainNav.classList.toggle("mobile-open");
-});
+function closeMobileMenu() {
+  mainNav.classList.remove("mobile-open");
+  menuBtn.setAttribute("aria-expanded", "false");
+  menuBtn.setAttribute("aria-label", "Open navigation menu");
+}
+
+function toggleMobileMenu() {
+  const isOpen = mainNav.classList.toggle("mobile-open");
+  menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  menuBtn.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+}
+
+menuBtn.addEventListener("click", toggleMobileMenu);
 
 mainNav.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => mainNav.classList.remove("mobile-open"));
+  link.addEventListener("click", closeMobileMenu);
+});
+
+document.addEventListener("click", event => {
+  if (!mainNav.classList.contains("mobile-open")) return;
+  if (!mainNav.contains(event.target) && !menuBtn.contains(event.target)) {
+    closeMobileMenu();
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeMobileMenu();
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 900) closeMobileMenu();
 });
 
 // FAQ accordion

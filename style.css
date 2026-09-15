@@ -35,7 +35,7 @@ button, input, select, textarea { font: inherit; }
 }
 
 .nav-container {
-  max-width: 1240px;
+  max-width: 1500px;
   margin: auto;
   padding: 17px 28px;
   display: flex;
@@ -44,7 +44,17 @@ button, input, select, textarea { font: inherit; }
   gap: 25px;
 }
 
-.brand { display: flex; flex-direction: column; }
+.brand { display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; column-gap: 10px; }
+
+/* CareerSprintly logo beside the navbar wordmark */
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex: 0 0 42px;
+  display: block;
+}
+
 .brand-name, .footer-brand {
   font-family: "DM Serif Display", Georgia, serif;
   font-size: 28px;
@@ -52,6 +62,9 @@ button, input, select, textarea { font: inherit; }
 }
 .brand-name span, .footer-brand span { color: var(--gold); }
 .brand small {
+  flex-basis: calc(100% - 52px);
+  margin-left: 52px;
+  margin-top: -7px;
   font-size: 7px;
   letter-spacing: 2px;
   color: var(--muted);
@@ -3653,5 +3666,449 @@ a[href="#services"].btn:hover {
 @media (max-width: 900px) {
   .navbar nav#mainNav a::after {
     bottom: -4px;
+  }
+}
+
+
+/* ============================================================
+   FINAL MOBILE NAVIGATION FIX
+   Desktop: normal horizontal navigation.
+   Phone/tablet: hamburger button + hidden dropdown navigation.
+   This block intentionally comes LAST so it overrides earlier
+   navbar/underline rules without changing the desktop design.
+   ============================================================ */
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .nav-container {
+    position: relative;
+    width: 100%;
+    padding: 14px 18px;
+    gap: 12px;
+  }
+
+  .brand {
+    min-width: 0;
+    max-width: calc(100% - 58px);
+  }
+
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .brand-name {
+    font-size: clamp(25px, 8vw, 30px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .brand small {
+    flex-basis: calc(100% - 50px);
+    margin-left: 50px;
+    margin-top: -6px;
+    font-size: 6px;
+    letter-spacing: 1.7px;
+    line-height: 1.5;
+    max-width: 170px;
+  }
+
+  /* IMPORTANT: hide the desktop nav even though the underline
+     animation declares display:flex with higher specificity. */
+  .navbar nav#mainNav {
+    display: none !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 12px 18px 18px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    background: rgba(246,244,239,.98) !important;
+    border-top: 1px solid rgba(0,0,0,.06) !important;
+    border-bottom: 1px solid var(--line) !important;
+    box-shadow: 0 14px 30px rgba(20,36,55,.10) !important;
+    backdrop-filter: blur(16px);
+    z-index: 1001 !important;
+  }
+
+  /* This is the state opened by the hamburger button. */
+  .navbar nav#mainNav.mobile-open {
+    display: flex !important;
+  }
+
+  .navbar nav#mainNav a {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-height: 48px !important;
+    padding: 13px 4px !important;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+    color: var(--ink, #111315) !important;
+    border-bottom: 1px solid rgba(20,36,55,.10) !important;
+  }
+
+  .navbar nav#mainNav a:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .navbar nav#mainNav a::after {
+    left: 0 !important;
+    bottom: 5px !important;
+    width: 100% !important;
+    height: 2px !important;
+    transform: scaleX(0) !important;
+    transform-origin: left center !important;
+  }
+
+  .navbar nav#mainNav a:hover::after,
+  .navbar nav#mainNav a:focus-visible::after {
+    transform: scaleX(1) !important;
+  }
+
+  .navbar nav#mainNav a:hover,
+  .navbar nav#mainNav a:focus-visible {
+    color: var(--gold, #b38d52) !important;
+  }
+
+  .navbar .nav-cta {
+    display: none !important;
+  }
+
+  /* The button that was present before the mobile changes. */
+  .navbar .menu-btn {
+    display: inline-flex !important;
+    flex: 0 0 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin-left: auto !important;
+    padding: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid var(--navy, #142437) !important;
+    border-radius: 9px !important;
+    background: transparent !important;
+    color: var(--navy, #142437) !important;
+    font-size: 23px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .navbar .menu-btn:hover,
+  .navbar .menu-btn:focus-visible {
+    background: var(--navy, #142437) !important;
+    color: #fff !important;
+    border-color: var(--navy, #142437) !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Prevent the hero from sitting underneath the mobile menu. */
+  .hero {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-container {
+    padding: 13px 16px;
+  }
+
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .brand-name {
+    font-size: 27px;
+  }
+
+  .brand small {
+    flex-basis: calc(100% - 46px);
+    margin-left: 46px;
+    font-size: 5.5px;
+    letter-spacing: 1.5px;
+  }
+
+  .navbar nav#mainNav {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+/* Desktop stays exactly as a horizontal navigation bar. */
+@media (min-width: 901px) {
+  .navbar nav#mainNav {
+    display: flex !important;
+    position: static !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 28px !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .navbar .menu-btn {
+    display: none !important;
+  }
+}
+
+
+/* ============================================================
+   FINAL MOBILE TEXT / NAV OVERFLOW FIX
+   Prevent any navigation or hero text from overlapping on phones.
+   ============================================================ */
+@media (max-width: 900px) {
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  .navbar,
+  .nav-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .nav-container {
+    min-width: 0 !important;
+  }
+
+  .navbar .brand {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: calc(100% - 60px) !important;
+  }
+
+  .navbar .brand-name {
+    display: block !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+  }
+
+  /* Never allow the desktop links to occupy the mobile header. */
+  .navbar nav#mainNav,
+  .navbar nav#mainNav.mobile-open {
+    box-sizing: border-box !important;
+  }
+
+  .navbar nav#mainNav:not(.mobile-open) {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .navbar nav#mainNav.mobile-open {
+    display: flex !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .navbar .menu-btn {
+    display: inline-flex !important;
+    visibility: visible !important;
+    flex: 0 0 44px !important;
+  }
+
+  /* Keep the mobile hero heading readable and separated. */
+  .hero h1 {
+    font-size: clamp(40px, 11vw, 48px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.45px !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+
+  .hero-copy,
+  .hero-copy * {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-container {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .navbar .brand-logo {
+    width: 34px !important;
+    height: 34px !important;
+    flex-basis: 34px !important;
+  }
+
+  .navbar .brand-name {
+    font-size: 25px !important;
+  }
+
+  .navbar .brand small {
+    flex-basis: calc(100% - 44px) !important;
+    margin-left: 44px !important;
+    font-size: 5px !important;
+    letter-spacing: 1.35px !important;
+  }
+
+  .hero h1 {
+    font-size: 40px !important;
+    line-height: 1.03 !important;
+  }
+}
+
+@media (min-width: 901px) {
+  .navbar nav#mainNav {
+    display: flex !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .navbar .menu-btn {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   FINAL NAVBAR BRAND ALIGNMENT FIX
+   Logo stays to the left of CareerSprintly.
+   Tagline stays directly UNDER CareerSprintly and never overlaps
+   the wordmark or moves to the right on smaller screens.
+   ============================================================ */
+.navbar .brand {
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, auto) !important;
+  grid-template-rows: auto auto !important;
+  column-gap: 10px !important;
+  row-gap: 1px !important;
+  align-items: center !important;
+  align-content: center !important;
+  flex-wrap: nowrap !important;
+  min-width: 0 !important;
+}
+
+.navbar .brand-logo {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+  width: 42px !important;
+  height: 42px !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+.navbar .brand-name {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: block !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  min-width: 0 !important;
+  line-height: 1 !important;
+}
+
+.navbar .brand small {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  display: block !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-basis: auto !important;
+  white-space: nowrap !important;
+  line-height: 1.25 !important;
+}
+
+@media (max-width: 900px) {
+  .navbar .brand {
+    grid-template-columns: 40px minmax(0, auto) !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 9px !important;
+    row-gap: 1px !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+  }
+
+  .navbar .brand-logo {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .navbar .brand-name {
+    font-size: clamp(25px, 8vw, 30px) !important;
+  }
+
+  .navbar .brand small {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    font-size: 6px !important;
+    letter-spacing: 1.7px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar .brand {
+    grid-template-columns: 36px minmax(0, auto) !important;
+    column-gap: 9px !important;
+  }
+
+  .navbar .brand-logo {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .navbar .brand-name {
+    font-size: 27px !important;
+  }
+
+  .navbar .brand small {
+    font-size: 5.5px !important;
+    letter-spacing: 1.5px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .navbar .brand {
+    grid-template-columns: 34px minmax(0, auto) !important;
+    column-gap: 8px !important;
+  }
+
+  .navbar .brand-logo {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .navbar .brand-name {
+    font-size: 25px !important;
+  }
+
+  .navbar .brand small {
+    font-size: 5px !important;
+    letter-spacing: 1.35px !important;
   }
 }
