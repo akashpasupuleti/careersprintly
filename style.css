@@ -10905,3 +10905,40 @@ body {
 
 
 
+
+/* HERO CTA — visible button styling */
+.cta-section .cs-start-audit,
+.cta-section .cs-start-audit:visited {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-height: 48px !important;
+  padding: 13px 22px !important;
+  background: transparent !important;
+  color: #fff !important;
+  border: 1.5px solid rgba(255,255,255,.88) !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition:
+    background-color .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    transform .25s ease,
+    box-shadow .25s ease !important;
+}
+
+.cta-section .cs-start-audit:hover {
+  background: var(--gold, #c9a24a) !important;
+  color: #fff !important;
+  border-color: var(--gold, #c9a24a) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,.16) !important;
+}
+
+.cta-section .cs-start-audit:hover * {
+  color: #fff !important;
+}
+
